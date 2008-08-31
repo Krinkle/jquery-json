@@ -1,27 +1,33 @@
 /// Tests ///
 
-var tests_passed = true;
+var tests_fail = 0;
+
+function _test(o, correct, compact)
+{
+    try { 
+        var result = $.toJSON(o, compact);
+    } catch (e) { 
+        if (e.name === correct.name) return;   // For TypeError, etc
+        tests_fail += 1;
+        throw e;
+    }
+
+    if (result != correct) 
+    {   
+        tests_fail += 1;
+        throw new Error("Wanted: " + correct.toString() + " -- Got: " + result.toString());
+    }
+}
 
 // 'console' comes from FireBug
 function testJSON(o, full, compact) {
-    if (compact == undefined)
-        compact = full;
-    try { 
-        var full_result = $.toJSON(o);
-    } catch (e) { 
-        if (e.name === full.name) return;   // For TypeError, etc
-        return console.error(e, o); }
-    try {
-        var compact_result = $.compactJSON(o);
-    } catch (e) { 
-        if (e.name === compact.name) return;   // For TypeError, etc
-        return console.error(e, o); }
-    if (full_result != full) 
-    {   console.error("Conversion Error: %s != %s", full_result, full);
-        tests_passed = false;    }
-    if (compact_result != compact) 
-    {   console.error("Compact Conversion Error: %s != %s", compact_result, compact);
-        tests_passed = false;    }
+    try { _test(o, full); }
+    catch (e) { console.error("Conversion Error:", e.message) }
+    
+    if (compact == undefined) return;
+    
+    try { _test(o, compact, true); }
+    catch (e) { console.error("Compact Conversion Error:", e.message) }
 }
 
 console.log("Testing...");
@@ -36,8 +42,8 @@ console.log("Done.")
 
 $(function()
 {
-    if (tests_passed)
-        $('h1').addClass('passed').append(' PASSED');
+    if (tests_fail > 0)
+        $('h1 span').addClass('fail').empty().append("FAIL (" + tests_fail +")");
     else
-        $('h1').addClass('fail').append(' FAIL');
+        $('h1 span').addClass('passed').empty().append("PASSED");
 })

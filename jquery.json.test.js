@@ -36,6 +36,7 @@ testJSON({apple: 2}, "{\"apple\": 2}", "{\"apple\":2}");
 testJSON({apple: {apple: 2}}, "{\"apple\": {\"apple\": 2}}", "{\"apple\":{\"apple\":2}}");
 testJSON(2.5, "2.5");
 testJSON(25, "25");
+testJSON(new Date(2008, 9, 25), "2008-09-25");
 testJSON([2, 5], "[2, 5]", "[2,5]");
 testJSON(function() {}, TypeError);
 console.log("Done.")

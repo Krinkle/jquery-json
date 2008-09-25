@@ -25,9 +25,9 @@
     // Yes, it polutes the Date namespace, but we'll allow it here, as
     // it's damned usefull.
     {
-        return date.getUTCFullYear()   + '-' +
-             toIntegersAtLease(date.getUTCMonth() + 1) + '-' +
-             toIntegersAtLease(date.getUTCDate());
+        return this.getUTCFullYear()   + '-' +
+             toIntegersAtLease(this.getUTCMonth()) + '-' +
+             toIntegersAtLease(this.getUTCDate());
     };
 
     var escapeable = /["\\\x00-\x1f\x7f-\x9f]/g;

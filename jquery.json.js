@@ -39,7 +39,7 @@
             '\r': '\\r',
             '"' : '\\"',
             '\\': '\\\\'
-        }
+        };
         
     $.quoteString = function(string)
     // Places quotes around a string, inteligently.
@@ -58,10 +58,10 @@
                 }
                 c = a.charCodeAt();
                 return '\\u00' + Math.floor(c / 16).toString(16) + (c % 16).toString(16);
-            }) + '"'
+            }) + '"';
         }
         return '"' + string + '"';
-    }
+    };
     
     $.toJSON = function(o, compact)
     {
@@ -103,10 +103,10 @@
         }
         
         // It's probably an object, then.
-        ret = [];
+        var ret = [];
         for (var k in o) {
             var name;
-            var type = typeof(k);
+            type = typeof(k);
             
             if (type == "number")
                 name = '"' + k + '"';
@@ -115,7 +115,7 @@
             else
                 continue;  //skip non-string or number keys
             
-            val = $.toJSON(o[k], compact);
+            var val = $.toJSON(o[k], compact);
             if (typeof(val) != "string") {
                 // skip non-serializable values
                 continue;
@@ -127,18 +127,18 @@
                 ret.push(name + ": " + val);
         }
         return "{" + ret.join(", ") + "}";
-    }
+    };
     
     $.compactJSON = function(o)
     {
         return $.toJSON(o, true);
-    }
+    };
     
     $.evalJSON = function(src)
     // Evals JSON that we know to be safe.
     {
         return eval("(" + src + ")");
-    }
+    };
     
     $.secureEvalJSON = function(src)
     // Evals JSON in a way that is *more* secure.
@@ -152,5 +152,5 @@
             return eval("(" + src + ")");
         else
             throw new SyntaxError("Error parsing JSON, source is not valid.");
-    }
+    };
 })(jQuery);

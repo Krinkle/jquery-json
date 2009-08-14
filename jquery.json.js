@@ -114,6 +114,8 @@
      **/
     $.evalJSON = function(src)
     {
+        if (JSON && JSON.parse)
+            return JSON.parse(src);
         return eval("(" + src + ")");
     }
     

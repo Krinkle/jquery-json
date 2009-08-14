@@ -1,6 +1,6 @@
 /*
  * jQuery JSON Plugin
- * version: 2.0 (2009-08-14)
+ * version: 2.1 (2009-08-14)
  *
  * This document is licensed as free software under the terms of the
  * MIT License: http://www.opensource.org/licenses/mit-license.php
@@ -107,7 +107,7 @@
 
             return "{" + pairs.join(", ") + "}";
         }
-    }
+    };
 
     /** jQuery.evalJSON(src)
         Evaluates a given piece of json source.
@@ -117,7 +117,7 @@
         if (JSON && JSON.parse)
             return JSON.parse(src);
         return eval("(" + src + ")");
-    }
+    };
     
     /** jQuery.secureEvalJSON(src)
         Evals JSON in a way that is *more* secure.
@@ -159,10 +159,10 @@
                 if (typeof c === 'string') return c;
                 c = a.charCodeAt();
                 return '\\u00' + Math.floor(c / 16).toString(16) + (c % 16).toString(16);
-            }) + '"'
+            }) + '"';
         }
         return '"' + string + '"';
-    }
+    };
     
     var _escapeable = /["\\\x00-\x1f\x7f-\x9f]/g;
     
@@ -174,5 +174,5 @@
         '\r': '\\r',
         '"' : '\\"',
         '\\': '\\\\'
-    }
+    };
 })(jQuery);

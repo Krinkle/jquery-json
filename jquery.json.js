@@ -124,6 +124,9 @@
     **/
     $.secureEvalJSON = function(src)
     {
+        if (JSON && JSON.parse)
+            return JSON.parse(src);
+        
         var filtered = src;
         filtered = filtered.replace(/\\["\\\/bfnrtu]/g, '@');
         filtered = filtered.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']');

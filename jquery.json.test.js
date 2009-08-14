@@ -30,7 +30,6 @@ function _test(o, correct)
 
 // 'console' comes from FireBug
 function testJSON(o, expected) {
-    _test(o, expected);
     try { _test(o, expected); }
     catch (e) { console.error("Conversion Error:", e.message) }
     
@@ -56,6 +55,13 @@ testJSON([2, 5], "[2,5]");
 testJSON(function() {}, undefined);
 testJSON(function() {}, undefined);
 testJSON(null, "null");
+testJSON(["C:\\A.TXT","C:\\B.TXT","C:\\C.TXT","C:\\D.TXT"], '["C:\\\\A.TXT","C:\\\\B.TXT","C:\\\\C.TXT","C:\\\\D.TXT"]');
+testJSON({"dDefault": "1.84467440737E+19"}, '{"dDefault":"1.84467440737E+19"}');
+testJSON([undefined, undefined, 1, 2], '[null,null,1,2]');
+testJSON([0, false, function() {}], '[0,false,null]');
+testJSON(0, '0');
+testJSON(false, 'false');
+testJSON(null, 'null');
 testJSON(new Date(2008, 9, 25), '"2008-10-25T05:00:00.000Z"');
 
 // Temporarily remove Date's toJSON and JSON.stringify

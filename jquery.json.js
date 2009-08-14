@@ -80,7 +80,7 @@
             {
                 var ret = [];
                 for (var i = 0; i < o.length; i++)
-                    ret.push( $.toJSON(o[i]) );
+                    ret.push( $.toJSON(o[i]) || "null" );
 
                 return "[" + ret.join(",") + "]";
             }

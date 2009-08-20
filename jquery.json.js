@@ -151,7 +151,7 @@
      **/
     $.quoteString = function(string)
     {
-        if (_escapeable.test(string))
+        if (string.match(_escapeable))
         {
             return '"' + string.replace(_escapeable, function (a) 
             {

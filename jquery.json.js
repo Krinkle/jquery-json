@@ -26,7 +26,7 @@
      **/
     $.toJSON = function(o)
     {
-        if (JSON && JSON.stringify)
+        if (typeof(JSON) == 'object' && JSON.stringify)
             return JSON.stringify(o);
         
         var type = typeof(o);
@@ -114,7 +114,7 @@
      **/
     $.evalJSON = function(src)
     {
-        if (JSON && JSON.parse)
+        if (typeof(JSON) == 'object' && JSON.parse)
             return JSON.parse(src);
         return eval("(" + src + ")");
     };
@@ -124,7 +124,7 @@
     **/
     $.secureEvalJSON = function(src)
     {
-        if (JSON && JSON.parse)
+        if (typeof(JSON) == 'object' && JSON.parse)
             return JSON.parse(src);
         
         var filtered = src;

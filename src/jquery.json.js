@@ -15,13 +15,25 @@
  */
 
 (function( $ ) {
+
+	var	escapeable = /["\\\x00-\x1f\x7f-\x9f]/g,
+		meta = {
+			'\b': '\\b',
+			'\t': '\\t',
+			'\n': '\\n',
+			'\f': '\\f',
+			'\r': '\\r',
+			'"' : '\\"',
+			'\\': '\\\\'
+		};
+
 	/**
 	 * jQuery.toJSON
 	 * Converts the given argument into a JSON respresentation.
 	 *
 	 * @param o {Mixed} The json-serializble *thing* to be converted
 	 *
-	 * If an object has a "toJSON" function, that will be used to get the representation.
+	 * If an object has a toJSON prototype, that will be used to get the representation.
 	 * Non-integer/string keys are skipped in the object, as are keys that point to a
 	 * function.
 	 *
@@ -50,28 +62,29 @@
 				return $.toJSON( o.toJSON() );
 			}
 			if ( o.constructor === Date ) {
-				var month = o.getUTCMonth() + 1;
+				var	month = o.getUTCMonth() + 1,
+					day = o.getUTCDate(),
+					year = o.getUTCFullYear(),
+					hours = o.getUTCHours(),
+					minutes = o.getUTCMinutes(),
+					seconds = o.getUTCSeconds(),
+					milli = o.getUTCMilliseconds();
+
 				if ( month < 10 ) {
 					month = '0' + month;
 				}
-				var day = o.getUTCDate();
 				if ( day < 10 ) {
 					day = '0' + day;
 				}
-				var year = o.getUTCFullYear();
-				var hours = o.getUTCHours();
 				if ( hours < 10 ) {
 					hours = '0' + hours;
 				}
-				var minutes = o.getUTCMinutes();
 				if ( minutes < 10 ) {
 					minutes = '0' + minutes;
 				}
-				var seconds = o.getUTCSeconds();
 				if ( seconds < 10 ) {
 					seconds = '0' + seconds;
 				}
-				var milli = o.getUTCMilliseconds();
 				if ( milli < 100 ) {
 					milli = '0' + milli;
 				}
@@ -79,8 +92,8 @@
 					milli = '0' + milli;
 				}
 				return '"' + year + '-' + month + '-' + day + 'T' +
-				hours + ':' + minutes + ':' + seconds +
-				'.' + milli + 'Z"';
+					hours + ':' + minutes + ':' + seconds +
+					'.' + milli + 'Z"';
 			}
 			if ( o.constructor === Array ) {
 				var ret = [];
@@ -89,10 +102,11 @@
 				}
 				return '[' + ret.join(',') + ']';
 			}
-			var pairs = [];
+			var	name,
+				val,
+				pairs = [];
 			for ( var k in o ) {
-				var name;
-				var type = typeof k;
+				type = typeof k;
 				if ( type === 'number' ) {
 					name = '"' + k + '"';
 				} else if (type === 'string') {
@@ -106,7 +120,7 @@
 					//skip pairs where the value is a function.
 					continue;
 				}
-				var val = $.toJSON( o[k] );
+				val = $.toJSON( o[k] );
 				pairs.push(name + ':' + val);
 			}
 			return '{' + pairs.join(', ') + '}';
@@ -137,27 +151,17 @@
 			return JSON.parse( src );
 		}
 
-		var filtered = src;
-		filtered = filtered.replace(/\\["\\\/bfnrtu]/g, '@');
-		filtered = filtered.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']');
-		filtered = filtered.replace(/(?:^|:|,)(?:\s*\[)+/g, '');
+		var filtered = 
+			src
+			.replace( /\\["\\\/bfnrtu]/g, '@' )
+			.replace( /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+			.replace( /(?:^|:|,)(?:\s*\[)+/g, '');
 
 		if ( /^[\],:{}\s]*$/.test( filtered ) ) {
-			return eval('(' + src + ')');
+			return eval( '(' + src + ')' );
 		} else {
 			throw new SyntaxError( 'Error parsing JSON, source is not valid.' );
 		}
-	};
-
-	var _escapeable = /["\\\x00-\x1f\x7f-\x9f]/g;
-	var _meta = {
-		'\b': '\\b',
-		'\t': '\\t',
-		'\n': '\\n',
-		'\f': '\\f',
-		'\r': '\\r',
-		'"' : '\\"',
-		'\\': '\\\\'
 	};
 
 	/**
@@ -172,9 +176,9 @@
 	 * "\"Where are we going?\", she asked."
 	 */
 	$.quoteString = function( string ) {
-		if ( string.match( _escapeable ) ) {
-			return '"' + string.replace( _escapeable, function( a ) {
-				var c = _meta[a];
+		if ( string.match( escapeable ) ) {
+			return '"' + string.replace( escapeable, function( a ) {
+				var c = meta[a];
 				if ( typeof c === 'string' ) {
 					return c;
 				}

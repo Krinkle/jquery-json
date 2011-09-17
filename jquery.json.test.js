@@ -58,7 +58,8 @@ testJSON([0, false, function() {}], '[0,false,null]');
 testJSON(0, '0');
 testJSON(false, 'false');
 testJSON(null, 'null');
-testJSON(new Date(2008, 9, 25), '"2008-10-25T05:00:00.000Z"');
+// '1224892800000' is the Epoch timestamp of midnight October 25, 2008.
+testJSON(new Date(1224892800000), '"2008-10-25T00:00:00.000Z"');
 
 // Temporarily remove Date's toJSON and JSON.stringify
 dateToJSON = Date.prototype.toJSON;
@@ -68,7 +69,7 @@ if (typeof JSON === 'object' && JSON.stringify) {
 	JSON.stringify = null;
 }
 
-testJSON(new Date(2008, 9, 25), '"2008-10-25T05:00:00.000Z"');
+testJSON(new Date(1224892800000), '"2008-10-25T00:00:00.000Z"');
 
 // Restore Date's toJSON and JSON.stringify
 Date.prototype.toJSON = dateToJSON;

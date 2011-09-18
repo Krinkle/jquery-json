@@ -112,15 +112,11 @@ test( 'Dates', function(){
 	);
 
 
-	// Temporarily remove Date's toJSON and JSON.stringify
-	// So that we can test the fallback handler in jQuery.toJSON
-	var	dateToJson = Date.prototype.toJSON,
-		jsonStringify = null;
-	Date.prototype.toJSON = null;
-
-	if ( typeof JSON === 'object' && JSON.stringify ) {
-		var jsonStringify = JSON.stringify;
-		JSON.stringify = null;
+	// Test without the native version (if available)
+	// So that we can test the fallback in $.toJSON
+	var	dateToJson = Date.prototype.toJSON; // Keep a reference to the native one
+	if ( dateToJson ) {
+		delete Date.prototype.toJSON;
 	}
 
 	testToJSON(
@@ -130,9 +126,8 @@ test( 'Dates', function(){
 	);
 
 	// Restore
-	Date.prototype.toJSON = dateToJson;
-	if ( jsonStringify ) {
-		JSON.stringify = jsonStringify;
+	if ( dateToJson ) {
+		Date.prototype.toJSON = dateToJson;
 	}
 
 	testToJSON(

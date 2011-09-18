@@ -168,3 +168,25 @@ test( 'Undefined and null', function(){
 
 
 });
+test( 'Prototype inheritance', function(){
+
+    Object.prototype.AWESOME = 7;
+
+    testToJSON(
+        { apple: 2, key: 'value' },
+        '{"apple":2,"key":"value"}',
+        'Prototype values should not be included in the string'
+    );
+
+    // Since prototypes are highly dangerous,
+    // make sure to remove it as soon as possible
+    // Lots of code in jQuery will fail as it is
+    // in the policy of jQuery that Object prototypes
+    // are not supported.
+    try {
+        // Might fail in IE. Make sure to not let any exception
+        // get out.
+        delete Object.prototype.AWESOME;
+    } catch(e){}
+
+})

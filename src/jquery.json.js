@@ -1,17 +1,15 @@
 /**
- * jQuery JSON Plugin
- * version: 2.3 (2011-09-17)
+ * jQuery JSON Plugin v2.3 (2011-09-17)
  *
- * This document is licensed as free software under the terms of the
- * MIT License: http://www.opensource.org/licenses/mit-license.php
- *
- * Brantley Harris wrote this plugin. It is based somewhat on the JSON.org
- * website's http://www.json.org/json2.js, which proclaims:
- * "NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK.", a sentiment that
- * I uphold.
- *
- * It is also influenced heavily by MochiKit's serializeJSON, which is
- * copyrighted 2005 by Bob Ippolito.
+ * @author Brantley Harris, 2009-2011
+ * @author Timo Tijhof, 2011
+ * @source This plugin is heavily influenced by MochiKit's serializeJSON, which is
+ *         copyrighted 2005 by Bob Ippolito.
+ * @source Brantley Harris wrote this plugin. It is based somewhat on the JSON.org
+ *         website's http://www.json.org/json2.js, which proclaims:
+ *         "NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK.", a sentiment that
+ *         I uphold.
+ * @license MIT License <http://www.opensource.org/licenses/mit-license.php>
  */
 
 (function( $ ) {

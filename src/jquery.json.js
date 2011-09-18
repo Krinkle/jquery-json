@@ -43,11 +43,12 @@
 			return JSON.stringify( o );
 		}
 
-		var type = typeof o;
-
 		if ( o === null ) {
 			return 'null';
 		}
+
+		var type = typeof o;
+
 		if ( type === 'undefined' ) {
 			return undefined;
 		}

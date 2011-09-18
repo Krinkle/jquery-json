@@ -123,7 +123,7 @@
 				val = $.toJSON( o[k] );
 				pairs.push(name + ':' + val);
 			}
-			return '{' + pairs.join(', ') + '}';
+			return '{' + pairs.join(',') + '}';
 		}
 	};
 

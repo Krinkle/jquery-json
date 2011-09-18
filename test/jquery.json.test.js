@@ -28,6 +28,11 @@ test( 'Basic toJSON usage', function(){
 		'Objects inside objects'
 	);
 	equalJSON(
+		{ apple: 7, pear: 5 },
+		'{"apple":7,"pear":5}',
+		'Objects with multiple members should be separated by a comma'
+	);
+	equalJSON(
 		2.5,
 		'2.5',
 		'Numbers with a decimal'

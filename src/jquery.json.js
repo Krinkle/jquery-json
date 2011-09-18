@@ -1,5 +1,5 @@
 /**
- * jQuery JSON Plugin v2.3 (2011-09-17)
+ * jQuery JSON Plugin v2.3-edge (2011-09-18)
  *
  * @author Brantley Harris, 2009-2011
  * @author Timo Tijhof, 2011
@@ -104,21 +104,27 @@
 				val,
 				pairs = [];
 			for ( var k in o ) {
+				// Only include own properties,
+				// Filter out inherited prototypes
+				if ( !o.hasOwnProperty( k ) ) {
+					continue;
+				}
+
+				// Keys must be numerical or string. Skip others
 				type = typeof k;
 				if ( type === 'number' ) {
 					name = '"' + k + '"';
 				} else if (type === 'string') {
 					name = $.quoteString(k);
 				} else {
-					// Keys must be numerical or string. Skip others
 					continue;
 				}
 				type = typeof o[k];
 
+				// Invalid values like these return undefined
+				// from toJSON, however those object members
+				// shouldn't be included in the JSON string at all.
 				if ( type === 'function' || type === 'undefined' ) {
-					// Invalid values like these return undefined
-					// from toJSON, however those object members
-					// shouldn't be included in the JSON string at all.
 					continue;
 				}
 				val = $.toJSON( o[k] );

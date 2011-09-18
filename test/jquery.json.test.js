@@ -4,7 +4,7 @@
 
 
 // Utility function
-function equalJSON( json, string, description ) {
+function testToJSON( json, string, description ) {
 	equal( $.toJSON( json ), string, description || '' );
 }
 
@@ -12,87 +12,87 @@ module( 'jQuery.toJSON' );
 
 test( 'Basic toJSON usage', function(){
 
-	equalJSON(
+	testToJSON(
 		'hi',
 		'"hi"',
 		'Strings should be wrapped in double quotes'
 	);
-	equalJSON(
+	testToJSON(
 		{ apple: 2 },
 		'{"apple":2}',
 		'Objects'
 	);
-	equalJSON(
+	testToJSON(
 		{ apple: { apple: 2 } },
 		'{"apple":{"apple":2}}',
 		'Objects inside objects'
 	);
-	equalJSON(
+	testToJSON(
 		{ apple: 7, pear: 5 },
 		'{"apple":7,"pear":5}',
 		'Objects with multiple members should be separated by a comma'
 	);
-	equalJSON(
+	testToJSON(
 		2.5,
 		'2.5',
 		'Numbers with a decimal'
 	);
-	equalJSON(
+	testToJSON(
 		25,
 		'25',
 		'Number'
 	);
-	equalJSON(
+	testToJSON(
 		[2, 5],
 		'[2,5]',
 		'Array of numbers'
 	);
-	equalJSON(
+	testToJSON(
 		function() {},
 		undefined,
 		'Functions are not supported and should return undefined'
 	);
-	equalJSON(
+	testToJSON(
 		'C:\\A.TXT',
 		'"C:\\\\A.TXT"',
 		'Slashes should be double escaped' 
 	);
-	equalJSON(
+	testToJSON(
 		'C:\\B.TXT',
 		'"C:\\\\B.TXT"',
 		'Slashes should be double escaped' 
 	);
-	equalJSON(
+	testToJSON(
 		['C:\\A.TXT','C:\\B.TXT','C:\\C.TXT','C:\\D.TXT'],
 		'["C:\\\\A.TXT","C:\\\\B.TXT","C:\\\\C.TXT","C:\\\\D.TXT"]',
 		'Array of strings with slashes'
 	);
-	equalJSON(
+	testToJSON(
 		{'dDefault': '1.84467440737E+19'},
 		'{"dDefault":"1.84467440737E+19"}',
 		'Object with lower case key and value that should not be touched'
 	);
-	equalJSON(
+	testToJSON(
 		[0, false, function() {}],
 		'[0,false,null]',
 		'Resolve unsupported values (like functions) to null when encountered as object member values'
 	);
-	equalJSON(
+	testToJSON(
 		0,
 		'0',
 		'Zero is zero'
 	);
-	equalJSON(
+	testToJSON(
 		false,
 		'false',
 		'False is false'
 	);
-	equalJSON(
+	testToJSON(
 		null,
 		'null',
 		'null is null'
 	);
-	equalJSON(
+	testToJSON(
 		undefined,
 		undefined,
 		'undefined is not valid and should not return a string "undefined" but literally undefined'
@@ -105,7 +105,7 @@ test( 'Dates', function(){
 	// '1224892800000' is the Epoch timestamp of midnight October 25, 2008.
 	// Using that instead of Date(2008,10,25) to avoid errors when the user
 	// running the tests is not in a UTC +00:00 timezone (which is very likely)
-	equalJSON(
+	testToJSON(
 		new Date( 1224892800000 ),
 		'"2008-10-25T00:00:00.000Z"',
 		'Check date handling, likely the browser itself'
@@ -123,7 +123,7 @@ test( 'Dates', function(){
 		JSON.stringify = null;
 	}
 
-	equalJSON(
+	testToJSON(
 		new Date(1224892800000),
 		'"2008-10-25T00:00:00.000Z"',
 		'Testing fallback, any native browser handling disabled' 
@@ -135,7 +135,7 @@ test( 'Dates', function(){
 		JSON.stringify = jsonStringify;
 	}
 
-	equalJSON(
+	testToJSON(
 		new Date(1224892800000),
 		'"2008-10-25T00:00:00.000Z"',
 		'Sanity check in case something screwed up' 
@@ -146,7 +146,7 @@ test( 'Dates', function(){
 test( 'Function arguments object', function(){
 
 	function argTest( one, two, three ) {
-		equalJSON(
+		testToJSON(
 			arguments,
 			'{"0":"foo","1":"bar","2":"baz"}',
 			'arguments, as instance of Arguments, should be treated as an object'
@@ -160,12 +160,12 @@ test( 'Function arguments object', function(){
 test( 'Undefined and null', function(){
 
 
-	equalJSON(
+	testToJSON(
 		{ apple: undefined, pear: 5 },
 		'{"pear":5}',
 		'Objects with a member with value of type undefined should be removed'
 	);
-	equalJSON(
+	testToJSON(
 		[undefined, undefined, 1, 2],
 		'[null,null,1,2]',
 		'Resolve undefined to null when encountered as object member values'

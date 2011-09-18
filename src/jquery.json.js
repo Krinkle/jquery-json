@@ -1,6 +1,6 @@
 /**
  * jQuery JSON Plugin
- * version: 2.2 (2011-09-16)
+ * version: 2.3 (2011-09-17)
  *
  * This document is licensed as free software under the terms of the
  * MIT License: http://www.opensource.org/licenses/mit-license.php

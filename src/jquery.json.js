@@ -52,7 +52,7 @@
 			return undefined;
 		}
 		if ( type === 'number' || type === 'boolean' ) {
-			return o + '';
+			return '' + o;
 		}
 		if ( type === 'string') {
 			return $.quoteString( o );
@@ -96,16 +96,17 @@
 					'.' + milli + 'Z"';
 			}
 			if ( o.constructor === Array ) {
-				var ret = [];
-				for ( var i = 0; i < o.length; i++ ) {
+				var ret = [], i = 0;
+				for ( ; i < o.length; i++ ) {
 					ret.push( $.toJSON( o[i] ) || 'null' );
 				}
 				return '[' + ret.join(',') + ']';
 			}
 			var	name,
 				val,
+				k,
 				pairs = [];
-			for ( var k in o ) {
+			for ( k in o ) {
 				type = typeof k;
 				if ( type === 'number' ) {
 					name = '"' + k + '"';
@@ -154,7 +155,7 @@
 			return JSON.parse( src );
 		}
 
-		var filtered = 
+		var filtered =
 			src
 			.replace( /\\["\\\/bfnrtu]/g, '@' )
 			.replace( /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')

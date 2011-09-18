@@ -38,10 +38,9 @@
 	 * function.
 	 *
 	 */
-	$.toJSON = function( o ) {
-		if ( typeof JSON  === 'object' && JSON.stringify ) {
-			return JSON.stringify( o );
-		}
+	$.toJSON = typeof JSON === 'object' && JSON.stringify
+		? JSON.stringify
+		: function( o ) {
 
 		if ( o === null ) {
 			return 'null';
@@ -137,10 +136,9 @@
 	 *
 	 * @param src {String}
 	 */
-	$.evalJSON = function( src ) {
-		if ( typeof JSON === 'object' && JSON.parse ) {
-			return JSON.parse( src );
-		}
+	$.evalJSON = typeof JSON === 'object' && JSON.parse
+		? JSON.parse
+		: function( src ) {
 		return eval('(' + src + ')');
 	};
 
@@ -150,10 +148,9 @@
 	 *
 	 * @param src {String}
 	 */
-	$.secureEvalJSON = function( src ) {
-		if ( typeof JSON === 'object' && JSON.parse ) {
-			return JSON.parse( src );
-		}
+	$.secureEvalJSON = typeof JSON === 'object' && JSON.parse
+		? JSON.parse
+		: function( src ) {
 
 		var filtered = 
 			src

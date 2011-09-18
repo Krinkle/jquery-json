@@ -115,15 +115,18 @@
 					// Keys must be numerical or string. Skip others
 					continue;
 				}
+				type = typeof o[k];
 
-				if ( typeof o[k] === 'function' ) {
-					//skip pairs where the value is a function.
+				if ( type === 'function' || type === 'undefined' ) {
+					// Invalid values like these return undefined
+					// from toJSON, however those object members
+					// shouldn't be included in the JSON string at all.
 					continue;
 				}
 				val = $.toJSON( o[k] );
-				pairs.push(name + ':' + val);
+				pairs.push( name + ':' + val );
 			}
-			return '{' + pairs.join(',') + '}';
+			return '{' + pairs.join( ',' ) + '}';
 		}
 	};
 

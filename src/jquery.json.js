@@ -112,7 +112,7 @@
 				} else if (type === 'string') {
 					name = $.quoteString(k);
 				} else {
-					//skip non-string or number keys
+					// Keys must be numerical or string. Skip others
 					continue;
 				}
 

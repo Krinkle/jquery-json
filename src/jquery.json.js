@@ -52,7 +52,7 @@
 			return undefined;
 		}
 		if ( type === 'number' || type === 'boolean' ) {
-			return o + '';
+			return '' + o;
 		}
 		if ( type === 'string') {
 			return $.quoteString( o );

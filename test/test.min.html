@@ -5,6 +5,22 @@
 	<script type="text/javascript" src="../libs/jquery-1.6.4.js"></script>
 	<script type="text/javascript" src="../libs/jquery.qunit.js"></script>
 	<link rel="stylesheet" href="../libs/jquery.qunit.css" />
+	<!-- Testrun preparation -->
+	<script type="text/javascript">
+	/**
+	 * Implement 'disable native' option.
+	 * Useful for disabling the browsers native JSON api,
+	 * and thus test the plugins methods instead.
+	 */
+
+	// Adds a checkbox to QUnit's header for 'disable_native'
+	QUnit.config.urlConfig.push( 'disable_native' );
+
+	if ( QUnit.urlParams.disable_native ) {
+		// Unset the native methods in order to trigger the plugin's methods
+		window.JSON = undefined;
+	}
+	</script>
 	<!-- Source -->
 	<script type="text/javascript" src="../src/jquery.json.min.js"></script>
 	<!-- Test suite -->

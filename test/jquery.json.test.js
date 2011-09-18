@@ -137,3 +137,17 @@ test( 'Dates', function(){
 	);
 
 });
+
+test( 'Function arguments object', function(){
+
+	function argTest( one, two, three ) {
+		equalJSON(
+			arguments,
+			'{"0":"foo","1":"bar","2":"baz"}',
+			'arguments, as instance of Arguments, should be treated as an object'
+		);
+	}
+
+	argTest( 'foo', 'bar', 'baz' );
+
+})

@@ -33,6 +33,11 @@ test( 'Basic toJSON usage', function(){
 		'Objects with multiple members should be separated by a comma'
 	);
 	equalJSON(
+		{ apple: undefined, pear: 5 },
+		'{"pear":5}',
+		'Objects with a member with value of type undefined should be removed'
+	);
+	equalJSON(
 		2.5,
 		'2.5',
 		'Numbers with a decimal'

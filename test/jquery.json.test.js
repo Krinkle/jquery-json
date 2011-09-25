@@ -168,6 +168,7 @@ test( 'Undefined and null', function(){
 
 
 });
+
 test( 'Prototype inheritance', function(){
 
     Object.prototype.AWESOME = 7;
@@ -189,4 +190,15 @@ test( 'Prototype inheritance', function(){
         delete Object.prototype.AWESOME;
     } catch(e){}
 
-})
+});
+
+test( '"hasOwnProperty" mixup', function(){
+
+	testToJSON(
+		{ isAwesome: true, hasOwnProperty: false },
+		'{"isAwesome":true,"hasOwnProperty":false}',
+		'Guard against inherited prototypes should not depend on prototype inheritance itself'
+	);
+
+
+});

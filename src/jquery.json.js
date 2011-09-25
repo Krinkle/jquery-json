@@ -1,5 +1,5 @@
 /**
- * jQuery JSON Plugin v2.3-edge (2011-09-18)
+ * jQuery JSON Plugin v2.3-edge (2011-09-25)
  *
  * @author Brantley Harris, 2009-2011
  * @author Timo Tijhof, 2011
@@ -23,7 +23,8 @@
 			'\r': '\\r',
 			'"' : '\\"',
 			'\\': '\\\\'
-		};
+		},
+		hasOwn = Object.prototype.hasOwnProperty;
 
 	/**
 	 * jQuery.toJSON
@@ -106,7 +107,7 @@
 			for ( var k in o ) {
 				// Only include own properties,
 				// Filter out inherited prototypes
-				if ( !o.hasOwnProperty( k ) ) {
+				if ( !hasOwn.call( o, k ) ) {
 					continue;
 				}
 

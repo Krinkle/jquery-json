@@ -1,5 +1,5 @@
 /**
- * jQuery JSON Plugin v2.3-edge (2011-09-25)
+ * jQuery JSON Plugin v2.4-edge (2011-09-25)
  *
  * @author Brantley Harris, 2009-2011
  * @author Timo Tijhof, 2011

@@ -1,8 +1,8 @@
 /**
- * jQuery JSON Plugin v2.4-edge (2011-09-25)
+ * jQuery JSON Plugin v2.4-edge (2012-05-13)
  *
  * @author Brantley Harris, 2009-2011
- * @author Timo Tijhof, 2011
+ * @author Timo Tijhof, 2011-2012
  * @source This plugin is heavily influenced by MochiKit's serializeJSON, which is
  *         copyrighted 2005 by Bob Ippolito.
  * @source Brantley Harris wrote this plugin. It is based somewhat on the JSON.org
@@ -11,10 +11,12 @@
  *         I uphold.
  * @license MIT License <http://www.opensource.org/licenses/mit-license.php>
  */
+/*global jQuery */
+/*jslint continue: true, plusplus: true */
+(function ($) {
+	"use strict";
 
-(function( $ ) {
-
-	var	escapeable = /["\\\x00-\x1f\x7f-\x9f]/g,
+	var escapeable = /["\\\x00-\x1f\x7f-\x9f]/g,
 		meta = {
 			'\b': '\\b',
 			'\t': '\\t',
@@ -37,31 +39,30 @@
 	 * function.
 	 *
 	 */
-	$.toJSON = typeof JSON === 'object' && JSON.stringify
-		? JSON.stringify
-		: function( o ) {
-
-		if ( o === null ) {
+	$.toJSON = typeof JSON === 'object' && JSON.stringify ? JSON.stringify : function (o) {
+		if (o === null) {
 			return 'null';
 		}
 
-		var type = typeof o, $type = $.type( o );
+		var pairs, i, k, name, val,
+			type = typeof o,
+			$type = $.type(o);
 
-		if ( type === 'undefined' ) {
+		if (type === 'undefined') {
 			return undefined;
 		}
-		if ( type === 'number' || type === 'boolean' ) {
-			return '' + o;
+		if (type === 'number' || type === 'boolean') {
+			return String(o);
 		}
-		if ( type === 'string') {
-			return $.quoteString( o );
+		if (type === 'string') {
+			return $.quoteString(o);
 		}
-		if ( type === 'object' ) {
-			if ( typeof o.toJSON === 'function' ) {
-				return $.toJSON( o.toJSON() );
+		if (type === 'object') {
+			if (typeof o.toJSON === 'function') {
+				return $.toJSON(o.toJSON());
 			}
-			if ( $type === 'date' ) {
-				var	month = o.getUTCMonth() + 1,
+			if ($type === 'date') {
+				var month = o.getUTCMonth() + 1,
 					day = o.getUTCDate(),
 					year = o.getUTCFullYear(),
 					hours = o.getUTCHours(),
@@ -69,51 +70,52 @@
 					seconds = o.getUTCSeconds(),
 					milli = o.getUTCMilliseconds();
 
-				if ( month < 10 ) {
+				if (month < 10) {
 					month = '0' + month;
 				}
-				if ( day < 10 ) {
+				if (day < 10) {
 					day = '0' + day;
 				}
-				if ( hours < 10 ) {
+				if (hours < 10) {
 					hours = '0' + hours;
 				}
-				if ( minutes < 10 ) {
+				if (minutes < 10) {
 					minutes = '0' + minutes;
 				}
-				if ( seconds < 10 ) {
+				if (seconds < 10) {
 					seconds = '0' + seconds;
 				}
-				if ( milli < 100 ) {
+				if (milli < 100) {
 					milli = '0' + milli;
 				}
-				if ( milli < 10 ) {
+				if (milli < 10) {
 					milli = '0' + milli;
 				}
 				return '"' + year + '-' + month + '-' + day + 'T' +
 					hours + ':' + minutes + ':' + seconds +
 					'.' + milli + 'Z"';
 			}
-			if ( $.isArray( o ) ) {
-				var ret = [];
-				for ( var i = 0; i < o.length; i++ ) {
-					ret.push( $.toJSON( o[i] ) || 'null' );
+
+			pairs = [];
+
+			if ($.isArray(o)) {
+				for (i = 0; i < o.length; i++) {
+					pairs.push($.toJSON(o[i]) || 'null');
 				}
-				return '[' + ret.join(',') + ']';
+				return '[' + pairs.join(',') + ']';
 			}
-			var	name,
-				val,
-				pairs = [];
-			for ( var k in o ) {
+
+			// Plain object
+			for (k in o) {
 				// Only include own properties,
 				// Filter out inherited prototypes
-				if ( !hasOwn.call( o, k ) ) {
+				if (!hasOwn.call(o, k)) {
 					continue;
 				}
 
 				// Keys must be numerical or string. Skip others
 				type = typeof k;
-				if ( type === 'number' ) {
+				if (type === 'number') {
 					name = '"' + k + '"';
 				} else if (type === 'string') {
 					name = $.quoteString(k);
@@ -125,13 +127,13 @@
 				// Invalid values like these return undefined
 				// from toJSON, however those object members
 				// shouldn't be included in the JSON string at all.
-				if ( type === 'function' || type === 'undefined' ) {
+				if (type === 'function' || type === 'undefined') {
 					continue;
 				}
-				val = $.toJSON( o[k] );
-				pairs.push( name + ':' + val );
+				val = $.toJSON(o[k]);
+				pairs.push(name + ':' + val);
 			}
-			return '{' + pairs.join( ',' ) + '}';
+			return '{' + pairs.join(',') + '}';
 		}
 	};
 
@@ -141,9 +143,7 @@
 	 *
 	 * @param src {String}
 	 */
-	$.evalJSON = typeof JSON === 'object' && JSON.parse
-		? JSON.parse
-		: function( src ) {
+	$.evalJSON = typeof JSON === 'object' && JSON.parse ? JSON.parse : function (src) {
 		return eval('(' + src + ')');
 	};
 
@@ -153,21 +153,17 @@
 	 *
 	 * @param src {String}
 	 */
-	$.secureEvalJSON = typeof JSON === 'object' && JSON.parse
-		? JSON.parse
-		: function( src ) {
-
-		var filtered = 
+	$.secureEvalJSON = typeof JSON === 'object' && JSON.parse ? JSON.parse : function (src) {
+		var filtered =
 			src
-			.replace( /\\["\\\/bfnrtu]/g, '@' )
-			.replace( /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
-			.replace( /(?:^|:|,)(?:\s*\[)+/g, '');
+			.replace(/\\["\\\/bfnrtu]/g, '@')
+			.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+			.replace(/(?:^|:|,)(?:\s*\[)+/g, '');
 
-		if ( /^[\],:{}\s]*$/.test( filtered ) ) {
-			return eval( '(' + src + ')' );
-		} else {
-			throw new SyntaxError( 'Error parsing JSON, source is not valid.' );
+		if (/^[\],:{}\s]*$/.test(filtered)) {
+			return eval('(' + src + ')');
 		}
+		throw new SyntaxError('Error parsing JSON, source is not valid.');
 	};
 
 	/**
@@ -181,11 +177,11 @@
 	 * >>> jQuery.quoteString('"Where are we going?", she asked.')
 	 * "\"Where are we going?\", she asked."
 	 */
-	$.quoteString = function( string ) {
-		if ( string.match( escapeable ) ) {
-			return '"' + string.replace( escapeable, function( a ) {
+	$.quoteString = function (string) {
+		if (string.match(escapeable)) {
+			return '"' + string.replace(escapeable, function (a) {
 				var c = meta[a];
-				if ( typeof c === 'string' ) {
+				if (typeof c === 'string') {
 					return c;
 				}
 				c = a.charCodeAt();
@@ -195,4 +191,4 @@
 		return '"' + string + '"';
 	};
 
-})( jQuery );
+}(jQuery));

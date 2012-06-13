@@ -28,9 +28,9 @@
 
 	/**
 	 * jQuery.toJSON
-	 * Converts the given argument into a JSON respresentation.
+	 * Converts the given argument into a JSON representation.
 	 *
-	 * @param o {Mixed} The json-serializble *thing* to be converted
+	 * @param o {Mixed} The json-serializable *thing* to be converted
 	 *
 	 * If an object has a toJSON prototype, that will be used to get the representation.
 	 * Non-integer/string keys are skipped in the object, as are keys that point to a

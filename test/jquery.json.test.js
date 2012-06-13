@@ -134,6 +134,57 @@ QUnit.test('Dates', function (assert) {
 	);
 });
 
+QUnit.test('RegExp', function (assert) {
+	// We don't really care what RegExp objects end up like,
+	// but we want to match browser behavior.
+	assert.toJSON(
+		new RegExp( 'hello' ),
+		'{}',
+		'Instantiated RegExp (simple) '
+	);
+	assert.toJSON(
+		new RegExp( 'hello', 'gi' ),
+		'{}',
+		'Instantiated RegExp (with options)'
+	);
+	assert.toJSON(
+		/hello/,
+		'{}',
+		'RegExp literal (simple)'
+	);
+	assert.toJSON(
+		/hello/gi,
+		'{}',
+		'RegExp literal (with options)'
+	);
+});
+
+QUnit.test('Primitive constructors', function (assert) {
+	// Nobody should be using new Number(), new Boolean(), or new String()
+	// but they are an interesting edge case, because they are typeof 'object'.
+
+	assert.toJSON(
+		new Number(7),
+		'7',
+		'Instantiated Number'
+	);
+	assert.toJSON(
+		new Boolean(true),
+		'true',
+		'Instantiated Boolean (true)'
+	);
+	assert.toJSON(
+		new Boolean(false),
+		'false',
+		'Instantiated Boolean (false)'
+	);
+	assert.toJSON(
+		new String('hello'),
+		'"hello"',
+		'Instantiated String'
+	);
+});
+
 QUnit.test('Function arguments object', function (assert) {
 	function argTest() {
 		assert.toJSON(

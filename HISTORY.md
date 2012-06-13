@@ -15,6 +15,8 @@
 
 * (issue 56) Fixed spelling errors in documentation comments.
 
+* Improved build and unit test process.
+
 
 ## 2.3 / 2011-09-18
 

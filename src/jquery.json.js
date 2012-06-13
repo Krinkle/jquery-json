@@ -45,7 +45,7 @@
 			return 'null';
 		}
 
-		var type = typeof o;
+		var type = typeof o, $type = $.type( o );
 
 		if ( type === 'undefined' ) {
 			return undefined;
@@ -60,7 +60,7 @@
 			if ( typeof o.toJSON === 'function' ) {
 				return $.toJSON( o.toJSON() );
 			}
-			if ( o.constructor === Date ) {
+			if ( $type === 'date' ) {
 				var	month = o.getUTCMonth() + 1,
 					day = o.getUTCDate(),
 					year = o.getUTCFullYear(),
@@ -94,7 +94,7 @@
 					hours + ':' + minutes + ':' + seconds +
 					'.' + milli + 'Z"';
 			}
-			if ( o.constructor === Array ) {
+			if ( $.isArray( o ) ) {
 				var ret = [];
 				for ( var i = 0; i < o.length; i++ ) {
 					ret.push( $.toJSON( o[i] ) || 'null' );

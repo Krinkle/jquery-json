@@ -1,3 +1,0 @@
-To run the minifier, run this command from the root directory of the repository:
-
-	python libs/jsmin.py < src/jquery.json.js > src/jquery.json.min.js

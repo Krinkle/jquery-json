@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Libs -->
+	<script src="../libs/jquery.js"></script>
+	<script src="../libs/jquery.qunit.js"></script>
+	<link rel="stylesheet" href="../libs/jquery.qunit.css">
+	<!-- Testrun preparation -->
+	<script>
+	/**
+	 * Implement 'min' option.
+	 * Also makes sure we force a cache miss to ease develoment.
+	 */
+	QUnit.config.urlConfig.push('build-min');
+
+	var srcPath,
+		cacheBust = '?' + (+new Date());
+
+	if (QUnit.urlParams['build-min']) {
+		srcPath = '../build/jquery.json.min.js';
+	} else {
+		srcPath = '../src/jquery.json.js';
+	}
+
+	// Load source
+	document.write(
+		'<script src="' + srcPath + cacheBust + '"><\/script>'
+	);
+
+	// Load test suite
+	document.write(
+		'<script src="jquery.json.test.js' + cacheBust + '"><\/script>'
+	);
+
+	/**
+	 * Implement 'disable native' option.
+	 * Useful for disabling the browsers native JSON api,
+	 * and thus test the plugins methods instead.
+	 */
+
+	// Adds a checkbox to QUnit's header for 'disable_native'
+	QUnit.config.urlConfig.push('disable_native');
+
+	if (QUnit.urlParams.disable_native) {
+		// Unset the native methods in order to trigger the plugin's methods
+		window.JSON = undefined;
+	}
+	</script>
+</head>
+<body>
+	<h1 id="qunit-header">jQuery JSON Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol></body>
+</html>

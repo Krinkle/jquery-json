@@ -13,15 +13,37 @@
 	 * Implement 'min' option.
 	 * Also makes sure we force a cache miss to ease develoment.
 	 */
-	QUnit.config.urlConfig.push('build-min');
+	QUnit.config.urlConfig.push({
+		id: 'build_min',
+		label: 'Use build',
+		tooltip: 'Use the minified version from the build directory'
+	});
 
 	var srcPath,
 		cacheBust = '?' + (+new Date());
 
-	if (QUnit.urlParams['build-min']) {
+	if (QUnit.urlParams.build_min) {
 		srcPath = '../build/jquery.json.min.js';
 	} else {
 		srcPath = '../src/jquery.json.js';
+	}
+
+	/**
+	 * Implement 'disable native' option.
+	 * Useful for disabling the browsers native JSON api,
+	 * and thus test the plugins methods instead.
+	 */
+
+	QUnit.config.urlConfig.push({
+		id: 'disable_native',
+		label: 'Disable native support',
+		tooltip: 'Disable the native window.JSON object (if it exists)'
+	});
+
+	if (QUnit.urlParams.disable_native) {
+		// Unset the native methods in order to test the fallback
+		// of jquery.json (even in modern browsers).
+		window.JSON = undefined;
 	}
 
 	// Load source
@@ -33,20 +55,6 @@
 	document.write(
 		'<script src="jquery.json.test.js' + cacheBust + '"><\/script>'
 	);
-
-	/**
-	 * Implement 'disable native' option.
-	 * Useful for disabling the browsers native JSON api,
-	 * and thus test the plugins methods instead.
-	 */
-
-	// Adds a checkbox to QUnit's header for 'disable_native'
-	QUnit.config.urlConfig.push('disable_native');
-
-	if (QUnit.urlParams.disable_native) {
-		// Unset the native methods in order to trigger the plugin's methods
-		window.JSON = undefined;
-	}
 	</script>
 </head>
 <body>

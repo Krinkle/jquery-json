@@ -1,6 +1,4 @@
-## 2.4
-
-***NOT A RELEASE YET***
+## 2.4.0 / 2012-11-14
 
 * (issue 50) Inherited properties should be left out.
 
@@ -18,7 +16,7 @@
 * Improved build and unit test process.
 
 
-## 2.3 / 2011-09-18
+## 2.3.0 / 2011-09-18
 
 * (issue 49) Improved performance by use direct reference to the native API.
   Methods $.toJSON, $.evalJSON and $.secureEvalJSON will link directly to the
@@ -34,17 +32,17 @@
 * Code clean up and JSHint validation (Yay!)
 
 
-## 2.2 / 2009-08-14
+## 2.2.0 / 2009-08-14
 
 * Fixed exception thrown in WebKit browsers.
 
 
-## 2.1 / 2009-08-14
+## 2.1.0 / 2009-08-14
 
 * Fixed a problem in how it was representing arrays and undefined values.
 
 
-## 2.0 / 2009-08-14
+## 2.0.0 / 2009-08-14
 
 * Fixed a bug where dates weren't converting correctly.
 

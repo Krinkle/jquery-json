@@ -2,7 +2,7 @@
  * Test suite for the jQuery JSON plugin.
  */
 /*global $, QUnit */
-/*jslint sloppy: true */
+/*jshint strict: false */
 
 // Utility function
 QUnit.assert.toJSON = function (json, string, description) {
@@ -162,24 +162,26 @@ QUnit.test('RegExp', function (assert) {
 QUnit.test('Primitive constructors', function (assert) {
 	// Nobody should be using new Number(), new Boolean(), or new String()
 	// but they are an interesting edge case, because they are typeof 'object'.
+	// Workaround for jshint:
+	var N = Number, B = Boolean, S = String;
 
 	assert.toJSON(
-		new Number(7),
+		new N(7),
 		'7',
 		'Instantiated Number'
 	);
 	assert.toJSON(
-		new Boolean(true),
+		new B(true),
 		'true',
 		'Instantiated Boolean (true)'
 	);
 	assert.toJSON(
-		new Boolean(false),
+		new B(false),
 		'false',
 		'Instantiated Boolean (false)'
 	);
 	assert.toJSON(
-		new String('hello'),
+		new S('hello'),
 		'"hello"',
 		'Instantiated String'
 	);

@@ -1,0 +1,30 @@
+{
+	"predef": [
+		"jQuery"
+	],
+
+	"bitwise": true,
+	"camelcase": true,
+	"curly": true,
+	"eqeqeq": true,
+	"forin": true,
+	"immed": true,
+	"indent": true,
+	"latedef": true,
+	"newcap": true,
+	"noarg": true,
+	"noempty": true,
+	"nonew": true,
+	"quotmark": "single",
+	"regexp": true,
+	"undef": true,
+	"unused": true,
+	"strict": true,
+	"trailing": true,
+
+	"browser": true,
+
+	"nomen": true,
+	"onevar": false,
+	"white": false
+}

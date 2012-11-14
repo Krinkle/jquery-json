@@ -11,9 +11,9 @@
  *         I uphold.
  * @license MIT License <http://www.opensource.org/licenses/mit-license.php>
  */
-/*global jQuery */
-/*jslint sloppy: true, continue: true, plusplus: true */
 (function ($) {
+	'use strict';
+
 	var escape = /["\\\x00-\x1f\x7f-\x9f]/g,
 		meta = {
 			'\b': '\\b',
@@ -54,7 +54,7 @@
 		// catch them here. I don't know whether it is right
 		// or wrong that instantiated primitives are not
 		// exported to JSON as an {"object":..}.
-		// We choose this path because that's what the browsers did. 
+		// We choose this path because that's what the browsers did.
 		if (type === 'number' || type === 'boolean') {
 			return String(o);
 		}
@@ -110,7 +110,7 @@
 
 		// Any other object (plain object, RegExp, ..)
 		// Need to do typeof instead of $.type, because we also
-		// want to catch non-plain objects. 
+		// want to catch non-plain objects.
 		if (typeof o === 'object') {
 			for (k in o) {
 				// Only include own properties,
@@ -147,6 +147,7 @@
 	 * @param str {String}
 	 */
 	$.evalJSON = typeof JSON === 'object' && JSON.parse ? JSON.parse : function (str) {
+		/*jshint evil: true */
 		return eval('(' + str + ')');
 	};
 
@@ -164,6 +165,7 @@
 			.replace(/(?:^|:|,)(?:\s*\[)+/g, '');
 
 		if (/^[\],:{}\s]*$/.test(filtered)) {
+			/*jshint evil: true */
 			return eval('(' + str + ')');
 		}
 		throw new SyntaxError('Error parsing JSON, source is not valid.');

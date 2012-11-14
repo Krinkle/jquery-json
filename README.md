@@ -2,7 +2,7 @@
 
 To run the minifier, run this command from the root directory of the repository:
 
-	$ sh ./build.sh
+	$ ./build.sh
 
 ## Test
 

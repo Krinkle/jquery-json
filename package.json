@@ -1,0 +1,31 @@
+{
+  "name": "jquery-json",
+  "version": "2.4.0",
+  "homepage": "https://github.com/Krinkle/jquery-json",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Krinkle/jquery-json.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Krinkle/jquery-json/issues"
+  },
+  "author": "Brantley Harris <deadwisdom@gmail.com> (https://github.com/DeadWisdom)",
+  "contributors": [
+    "Timo Tijhof <krinklemail@gmail.com> (https://github.com/Krinkle)"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "test": "grunt test",
+    "build": "npm install && grunt build"
+  },
+  "devDependencies": {
+    "grunt-cli": "0.1.13",
+    "grunt": "0.4.4",
+    "grunt-contrib-connect": "0.7.1",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-qunit": "0.4.0",
+    "grunt-contrib-uglify": "0.4.0",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-jscs-checker": "0.4.4"
+  }
+}

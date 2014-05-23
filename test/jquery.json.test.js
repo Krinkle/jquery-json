@@ -1,12 +1,12 @@
 /**
  * Test suite for the jQuery JSON plugin.
  */
-/*global $, QUnit */
-/*jshint strict: false */
+/*jshint freeze:false */
+/*global QUnit */
 
 // Utility function
 QUnit.assert.toJSON = function (json, string, description) {
-	QUnit.assert.equal($.toJSON(json), string, description || '');
+	QUnit.assert.equal(jQuery.toJSON(json), string, description || '');
 };
 
 QUnit.module('jQuery.toJSON');
@@ -68,7 +68,7 @@ QUnit.test('Basic toJSON usage', function (assert) {
 		'Array of strings with slashes'
 	);
 	assert.toJSON(
-		{'dDefault': '1.84467440737E+19'},
+		{ dDefault: '1.84467440737E+19' },
 		'{"dDefault":"1.84467440737E+19"}',
 		'Object with lower case key and value that should not be touched'
 	);
@@ -110,10 +110,10 @@ QUnit.test('Dates', function (assert) {
 	);
 
 	// Test without the native version (if available)
-	// So that we can test the fallback in $.toJSON
+	// So that we can test the fallback in jQuery.toJSON
 	var dateToJson = Date.prototype.toJSON; // Keep a reference to the native one
 	if (dateToJson) {
-		delete Date.prototype.toJSON;
+		Date.prototype.toJSON = undefined;
 	}
 
 	assert.toJSON(
@@ -138,12 +138,12 @@ QUnit.test('RegExp', function (assert) {
 	// We don't really care what RegExp objects end up like,
 	// but we want to match browser behavior.
 	assert.toJSON(
-		new RegExp( 'hello' ),
+		new RegExp('hello'),
 		'{}',
 		'Instantiated RegExp (simple) '
 	);
 	assert.toJSON(
-		new RegExp( 'hello', 'gi' ),
+		new RegExp('hello', 'gi'),
 		'{}',
 		'Instantiated RegExp (with options)'
 	);
@@ -187,17 +187,20 @@ QUnit.test('Primitive constructors', function (assert) {
 	);
 });
 
-QUnit.test('Function arguments object', function (assert) {
-	function argTest() {
-		assert.toJSON(
-			arguments,
-			'{"0":"foo","1":"bar","2":"baz"}',
-			'arguments, as instance of Arguments, should be treated as an object'
-		);
-	}
+if (navigator.userAgent.indexOf('PhantomJS') === -1) {
+	// https://github.com/ariya/phantomjs/issues/10315
+	QUnit.test('Function arguments object', function (assert) {
+		function argTest() {
+			assert.toJSON(
+				arguments,
+				'{"0":"foo","1":"bar","2":"baz"}',
+				'arguments, as instance of Arguments, should be treated as an object'
+			);
+		}
 
-	argTest('foo', 'bar', 'baz');
-});
+		argTest('foo', 'bar', 'baz');
+	});
+}
 
 QUnit.test('Undefined and null', function (assert) {
 	assert.toJSON(
@@ -236,6 +239,7 @@ QUnit.test('Prototype inheritance', function (assert) {
 
 QUnit.test('"hasOwnProperty" mixup', function (assert) {
 	assert.toJSON(
+		/*jshint -W001 */
 		{ isAwesome: true, hasOwnProperty: false },
 		'{"isAwesome":true,"hasOwnProperty":false}',
 		'Guard against inherited prototypes should not depend on prototype inheritance itself'

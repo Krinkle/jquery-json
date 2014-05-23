@@ -1,27 +1,40 @@
-## Build
+[![Build Status](https://travis-ci.org/Krinkle/jquery-json.svg?branch=master)](https://travis-ci.org/Krinkle/jquery-json)
 
-To run the minifier, run this command from the root directory of the repository:
+# jQuery JSON
 
-	$ ./build.sh
+JSON plugin for jQuery, provides simple ways to convert to JSON and back again.
+
+## Development
+
+To create the minified build, run this command from the root directory of the repository:
+
+```bash
+$ npm run build
+```
 
 ## Test
 
-Open up ./test/index.html in your browsers and run the test.
+Open up `./test/index.html` in your browser to run the test suite, or run it from
+the command line with Grunt:
+
+```
+$ npm install
+$ npm test
+```
+
 For it to pass in modern browsers, you have to enable the `disable_native`
 option from the QUnit toolbar.
 
-Also, before releasing. Make sure to test the build version as well, you can
-do so by enabling the `build-min` option in the QUnit toolbar. This will load
-the code from the `./build/` directory instead of `./src/`.
+Also, before releasing. Make sure to test the minifed version as well, you can
+do so by enabling the `distmin` option in the QUnit toolbar. This will load
+the minified build from the `./dist/` directory instead of `./src/`.
 
-## Version
+## Versioning
 
 We use the Semantic Versioning guidelines as much as possible.
 
 Releases will be numbered in the following format:
 
-<major>.<minor>.<patch>
-
-The -alpha suffix is used to indicate unreleased versions in development.
+`<major>.<minor>.<patch>`
 
 For more information on SemVer, please visit http://semver.org/.

@@ -22,7 +22,7 @@ $ npm install
 $ npm test
 ```
 
-For it to pass in modern browsers, you have to enable the `disable_native`
+For it to pass in modern browsers, you have to enable the `disableNative`
 option from the QUnit toolbar.
 
 Also, before releasing. Make sure to test the minifed version as well, you can

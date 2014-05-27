@@ -35,7 +35,7 @@
 	 * Implement 'disableNative' option.
 	 *
 	 * Useful for disabling the browsers native JSON api,
-	 * and thus test the plugins methods instead.
+	 * and thus test the plugin's methods instead.
 	 */
 	QUnit.config.urlConfig.push({
 		id: 'disableNative',
@@ -44,30 +44,30 @@
 	});
 
 	if (QUnit.urlParams.disableNative) {
-		// Unset the native methods in order to test the fallback
-		// of jquery.json (even in modern browsers).
-		nativeJSON = window.JSON;
-		window.JSON = undefined;
+		nativeJSON = JSON;
+		JSON = undefined;
 	}
 
 	// Load source
 	jQuery.ajax({
 		url: srcPath,
 		dataType: 'script',
-		crossDomain: true,
-		cache: false
+		cache: false,
+		// Must use async:false (using XHR) or crossDomain:true (using <script>)
+		// as otherwise the qunit-phantomjs/bridge.js executes at the wrong time,
+		// causing a fatal error for JSON undefined (resulting in a timeout).
+		async: false
 	}).done(function () {
 		if (QUnit.urlParams.disableNative) {
-			window.JSON = nativeJSON;
+			JSON = nativeJSON;
 		}
 
 		// Load test suite
 		jQuery.ajax({
 			url: 'jquery.json.test.js',
 			dataType: 'script',
-			crossDomain: true,
 			cache: false
-		}).then(function () {
+		}).done(function () {
 			QUnit.start();
 		});
 	});

@@ -5,8 +5,8 @@
 /*global QUnit */
 
 // Utility function
-QUnit.assert.toJSON = function (json, string, description) {
-	QUnit.assert.equal(jQuery.toJSON(json), string, description || '');
+QUnit.assert.toJSON = function (obj, string, description) {
+	QUnit.assert.equal(jQuery.toJSON(obj), string, description || '');
 };
 
 QUnit.module('jQuery.toJSON');

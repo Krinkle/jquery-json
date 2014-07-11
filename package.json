@@ -18,6 +18,7 @@
     "test": "grunt test",
     "build": "npm install && grunt build"
   },
+  "files": [ "src", "dist", "LICENSE.txt", "README.md" ],
   "devDependencies": {
     "grunt-cli": "0.1.13",
     "grunt": "0.4.4",

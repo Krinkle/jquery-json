@@ -1,3 +1,10 @@
+## 2.5.0 / 2014-07-11
+
+* (#66) build: Switch to UglifyJS for better minification (2.3kb -> 1.9kb).
+* Published to npm.
+* Compatible with jQuery 1.11.
+* Moved project from Google Code to GitHub: https://github.com/Krinkle/jquery-json/releases.
+
 ## 2.4.0 / 2012-11-14
 
 * (#50) Inherited properties should be left out.

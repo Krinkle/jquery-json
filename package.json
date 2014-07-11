@@ -1,6 +1,7 @@
 {
   "name": "jquery-json",
-  "version": "2.4.0",
+  "description": "jQuery plugin for serialising to and parsing from JSON.",
+  "version": "2.5.1",
   "homepage": "https://github.com/Krinkle/jquery-json",
   "repository": {
     "type": "git",

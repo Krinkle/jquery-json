@@ -3,7 +3,7 @@
  * https://github.com/Krinkle/jquery-json
  *
  * @author Brantley Harris, 2009-2011
- * @author Timo Tijhof, 2011-2014
+ * @author Timo Tijhof, 2011-2014 http://github.com/Krinkle/jquery-json
  * @source This plugin is heavily influenced by MochiKit's serializeJSON, which is
  *         copyrighted 2005 by Bob Ippolito.
  * @source Brantley Harris wrote this plugin. It is based somewhat on the JSON.org

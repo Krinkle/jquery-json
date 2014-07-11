@@ -4,6 +4,13 @@
 
 JSON plugin for jQuery, provides simple ways to convert to JSON and back again.
 
+## Usage
+
+```js
+$.toJSON(myObject);
+$.toJSON({ foo: 'bar' });
+```
+
 ## Development
 
 To create the minified build, run this command from the root directory of the repository:

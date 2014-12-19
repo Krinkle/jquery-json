@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Krinkle/jquery-json.svg?branch=master)](https://travis-ci.org/Krinkle/jquery-json) [![NPM version](https://badge.fury.io/js/jquery-json.svg)](http://badge.fury.io/js/jquery-json)
+[![Build Status](https://travis-ci.org/Krinkle/jquery-json.svg?branch=master)](https://travis-ci.org/Krinkle/jquery-json) [![npm](https://img.shields.io/npm/v/jquery-json.svg?style=flat)](https://www.npmjs.com/package/jquery-json)
 
 # jQuery JSON
 

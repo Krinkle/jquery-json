@@ -14,6 +14,12 @@
  */
 (function ($) {
 	'use strict';
+	
+	// IE8에서 한글이 포함된 JSON Object를 JSON.stringify를 통해 변환 할 경우,
+	// 유니코드로 인코딩 처리되는 현상을 방지하기 위해 메소드를 추가 정의합니다.
+	// IE8에서 한글 변환시 다음과 같은 오류가 발생합니다.
+	// ex: '수정금지' -> '\uc218\uc815\uae08\uc9c0'
+	var oldIe = !document.addEventListener;
 
 	var escape = /["\\\x00-\x1f\x7f-\x9f]/g,
 		meta = {
@@ -26,7 +32,7 @@
 			'\\': '\\\\'
 		},
 		hasOwn = Object.prototype.hasOwnProperty;
-
+	
 	/**
 	 * jQuery.toJSON
 	 * Converts the given argument into a JSON representation.
@@ -38,7 +44,8 @@
 	 * function.
 	 *
 	 */
-	$.toJSON = typeof JSON === 'object' && JSON.stringify ? JSON.stringify : function (o) {
+	//$.toJSON = typeof JSON === 'object' && JSON.stringify ? JSON.stringify : function (o) {
+	$.toJSON = typeof JSON === 'object' && (JSON.stringify && !oldIE) ? JSON.stringify : function (o) {
 		if (o === null) {
 			return 'null';
 		}

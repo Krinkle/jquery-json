@@ -1,5 +1,5 @@
 /**
- * jQuery JSON plugin v2.5.1
+ * jQuery JSON plugin v2.6.0
  * https://github.com/Krinkle/jquery-json
  *
  * @author Brantley Harris, 2009-2011

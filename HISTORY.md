@@ -1,3 +1,7 @@
+## 2.6.0 / 2016-08-19
+
+* (#57) Added support for AMD and CommonJS loading.
+
 ## 2.5.0 / 2014-07-11
 
 * (#66) build: Switch to UglifyJS for better minification (2.3kb -> 1.9kb).

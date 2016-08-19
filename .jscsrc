@@ -8,6 +8,7 @@
 	"disallowYodaConditions": true,
 	"requireBlocksOnNewline": 1,
 	"requireCamelCaseOrUpperCaseIdentifiers": true,
+	"requireVarDeclFirst": null,
 	"requireMultipleVarDecl": true,
 	"validateIndentation": "\t",
 	"validateLineBreaks": "LF",

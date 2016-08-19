@@ -4,7 +4,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jscs');
 
 	grunt.initConfig({
@@ -45,18 +44,10 @@ module.exports = function (grunt) {
 					banner: '/*! jQuery JSON plugin v<%= pkg.version %> | github.com/Krinkle/jquery-json */\n'
 				}
 			}
-		},
-		watch: {
-			files: [
-				'.{jscsrc,jshintignore,jshintrc}',
-				'<%= jshint.all %>'
-			],
-			tasks: 'test'
 		}
 	});
 
 	grunt.registerTask('lint', ['jshint', 'jscs']);
 	grunt.registerTask('build', ['lint', 'uglify']);
 	grunt.registerTask('test', ['build', 'connect', 'qunit']);
-	grunt.registerTask('default', 'test');
 };

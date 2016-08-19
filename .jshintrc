@@ -13,6 +13,8 @@
 	"browser": true,
 
 	"globals": {
-		"jQuery": false
+		"jQuery": false,
+		"define": false,
+		"require": false
 	}
 }

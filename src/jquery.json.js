@@ -12,7 +12,18 @@
  *         I uphold.
  * @license MIT License <http://opensource.org/licenses/MIT>
  */
-(function ($) {
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD
+		define(['jquery'], factory);
+	} else if (typeof exports === 'object') {
+		// CommonJS
+		factory(require('jquery'));
+	} else {
+		// Browser globals
+		factory(jQuery);
+	}
+}(function ($) {
 	'use strict';
 
 	var escape = /["\\\x00-\x1f\x7f-\x9f]/g,
@@ -197,4 +208,4 @@
 		return '"' + str + '"';
 	};
 
-}(jQuery));
+}));

@@ -1,0 +1,12 @@
+{
+  "name": "jquery-json",
+  "main": "dist/jquery.json.min.js",
+  "version": "2.6.0",
+  "ignore": [
+    "package.json"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": ">=1.11"
+  }
+}

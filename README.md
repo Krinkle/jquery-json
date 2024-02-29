@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/Krinkle/jquery-json.svg?branch=master)](https://travis-ci.org/Krinkle/jquery-json) [![npm](https://img.shields.io/npm/v/jquery-json.svg?style=flat)](https://www.npmjs.com/package/jquery-json)
+[![npm](https://img.shields.io/npm/v/jquery-json.svg?style=flat)](https://www.npmjs.com/package/jquery-json)
+[![Tested with QUnit](https://img.shields.io/badge/tested_with-qunit-9c3493.svg)](https://qunitjs.com/)
 
 # jQuery JSON
 
